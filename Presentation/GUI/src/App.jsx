@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Auth from "./features/Auth/index";
 import Layers from "./features/Layers";
+import Uploader from "./features/Uploader";
 import "./_assets/styles/global.css";
 
 import ProtectedLayout from "./features/ProtectedLayout";
@@ -9,9 +10,6 @@ function History() {
   return <h1 className="section-title">Histórico</h1>;
 }
 
-function Uploader() {
-  return <h1 className="section-title">Uploader</h1>;
-}
 
 export default function App() {
   return (

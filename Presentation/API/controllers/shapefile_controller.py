@@ -6,8 +6,6 @@ from typing import Dict
 
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
-import psycopg2
-import psycopg2.extras
 
 from Application.services.shapefile_service import ShapefileService
 from Application.dto.shapefile_dto import ShapefileUploadResultDTO
@@ -77,14 +75,13 @@ async def upload_and_publish(
             publish_on_inde = str(publishOnINDE).strip().lower() in ("1", "true", "yes", "on")
 
         pub = service.publish_on_geoserver(
-            shapefile_entity,
-            workspace=ws,
-            datastore=ds,
-            sld_xml=sld_xml,
-            status="Publicado com sucesso no GeoServer",
-            publish_on_inde=publish_on_inde,          
-            inde_workspace=settings.INDE_WORKSPACE,
-            inde_datastore=settings.INDE_DATASTORE,
+                shapefile_entity,
+                workspace=ws,
+                datastore=ds,
+                sld_xml=sld_xml,
+                publish_on_inde=publish_on_inde,
+                inde_workspace=settings.INDE_WORKSPACE if publish_on_inde else None,
+                inde_datastore=settings.INDE_DATASTORE if publish_on_inde else None,
         )
 
         return ShapefileUploadResultDTO(
