@@ -1,0 +1,163 @@
+/* ===== Layout geral ===== */
+.auth-page {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #fff;
+}
+
+/* ===== Coluna esquerda: imagem ===== */
+.auth-hero {
+  flex: 0 0 60%;
+  /* ocupa 60% da largura */
+  position: relative;
+  background: #eaeaea center/cover no-repeat;
+  min-height: 100vh;
+}
+
+.auth-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+}
+
+/* ===== Coluna direita: formulário ===== */
+.auth-panel {
+  flex: 1;
+  /* ocupa o restante (40%) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  background-color: #fff;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-logo-fauno {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  margin-bottom: 40px;
+}
+
+.auth-logo-fauno img {
+  height: 5vw;
+}
+
+
+@media (max-width: 1024px) {
+  .auth-page {
+    flex-direction: column;
+  }
+
+  .auth-hero {
+    display: none;
+  }
+
+  .auth-panel {
+    flex: 1;
+    padding: 2rem;
+  }
+
+  .auth-logo-fauno img {
+    height: 15vw;
+  }
+}
+
+.auth-title {
+  font-family: var(--font-family-heading);
+  color: var(--primary-color);
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0.25rem 0 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  font-size: 0.95rem;
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.15rem rgba(38, 167, 55, 0.15);
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0 1rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-family: var(--font-family-heading);
+  cursor: pointer;
+  transition: transform 0.05s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.03);
+}
+
+.btn-outline {
+  background: #fff;
+  color: #0f172a;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-outline:hover {
+  filter: brightness(0.98);
+}
+
+.helper {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.error-box {
+  background: rgba(239, 78, 0, 0.08);
+  border: 1px solid rgba(239, 78, 0, 0.3);
+  color: var(--error-color);
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}

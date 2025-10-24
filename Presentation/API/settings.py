@@ -30,7 +30,7 @@ class _Settings(BaseModel):
     API_VERSION: str = Field(default="1.0.0")
     API_HOST: str = Field(default="0.0.0.0")
     API_PORT: int = Field(default=9090)
-    API_PREFIX: str = Field(default="/fauno/api/v1")
+    API_PREFIX: str = Field(default="/fauno-api/v1")
     API_RELOAD_ON_DEV: bool = Field(default=True)
 
     # CORS
@@ -82,7 +82,7 @@ settings = _Settings(
     API_VERSION=_get("Api.Version", "1.0.0"),
     API_HOST=_get("Api.Host", "0.0.0.0"),
     API_PORT=int(_get("Api.Port", 9090)),
-    API_PREFIX=_get("Api.Prefix", "/fauno/api/v1"),
+    API_PREFIX=_get("Api.Prefix", "/fauno-api/v1"),
     API_RELOAD_ON_DEV=bool(_get("Api.ReloadOnDev", True)),
 
     # CORS

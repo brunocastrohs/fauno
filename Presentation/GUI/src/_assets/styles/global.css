@@ -1,0 +1,185 @@
+/* =========================================
+   FAUNO - Global Stylesheet
+   ========================================= */
+
+/* ==========================
+   Variáveis globais
+   ========================== */
+:root {
+  --primary-color: rgb(38, 167, 55);          /* #26a737 */
+  --primary-color-text: rgb(255, 255, 255);   /* #ffffff */
+  --highlight-bg: rgb(93, 177, 47);           /* #5db12f */
+  --highlight-text-color: rgb(255, 255, 255); /* #ffffff */
+  --info-color: rgb(45, 179, 158);            /* #2db39e */
+  --warning-color: rgb(252, 207, 5);          /* #fccf05 */
+  --error-color: rgb(239, 78, 0);             /* #ef4e00 */
+  --font-family-base: 'Maitree', serif;
+  --font-family-heading: 'Kanit', sans-serif;
+  --border-radius: 6px;
+  --transition-fast: 0.2s ease-in-out;
+}
+
+/* ==========================
+   Reset básico
+   ========================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+  font-family: var(--font-family-base);
+  background-color: #fafafa;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Remover rolagem horizontal acidental */
+body {
+  overflow-x: hidden;
+}
+
+/* ==========================
+   Tipografia
+   ========================== */
+h1, h2, h3, h4, h5, h6,
+.title, .gov-header, .gov-toolbar {
+  font-family: var(--font-family-heading);
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--highlight-bg);
+}
+
+/* ==========================
+   Botões PrimeReact
+   ========================== */
+.p-button {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.p-button:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0.1rem rgba(38, 167, 55, 0.3);
+}
+
+.p-button.p-button-success {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--primary-color-text);
+}
+
+.p-button.p-button-success:hover {
+  background-color: var(--highlight-bg);
+  border-color: var(--highlight-bg);
+}
+
+.p-button.p-button-warning {
+  background-color: var(--warning-color);
+  border-color: var(--warning-color);
+  color: #000;
+}
+
+.p-button.p-button-danger {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #fff;
+}
+
+/* ==========================
+   Estrutura e títulos
+   ========================== */
+.section-title {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.page-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================
+   Cores e utilitários
+   ========================== */
+.bg-sema-green {
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-warning {
+  color: var(--warning-color) !important;
+}
+
+.text-error {
+  color: var(--error-color) !important;
+}
+
+.text-info {
+  color: var(--info-color) !important;
+}
+
+/* ==========================
+   Scrollbar customizada
+   ========================== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--highlight-bg);
+}
+
+::-webkit-scrollbar-track {
+  background-color: #eaeaea;
+}
+
+/* ==========================
+   Responsividade básica
+   ========================== */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+}
