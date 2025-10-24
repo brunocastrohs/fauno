@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import "./style.css";
+import "./styles.css";
 import logo from "../../_assets/images/logo_fauno.png";
 
 export default function Navigator() {
@@ -31,6 +31,11 @@ export default function Navigator() {
             <li>
               <NavLink to="/layers" className={({ isActive }) => (isActive ? "active" : "")}>
                 <i className="pi pi-map-marker" /> Camadas
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/upload" className={({ isActive }) => (isActive ? "active" : "")}>
+                <i className="pi pi-map-marker" /> Importar
               </NavLink>
             </li>
             <li>

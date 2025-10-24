@@ -1,6 +1,8 @@
 import { Outlet, Navigate } from "react-router-dom";
 import Navigator from "../Navigator";
 
+import "./styles.css";
+
 
 function hasValidToken() {
   const token =
