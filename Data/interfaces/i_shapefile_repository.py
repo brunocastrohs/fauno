@@ -10,3 +10,6 @@ class IShapefileRepository(ABC):
 
     @abstractmethod
     def table_exists(self, table: str, schema: str = "public") -> bool: ...
+
+    @abstractmethod
+    def list_layers(self, schema: str) -> list[dict]: ...

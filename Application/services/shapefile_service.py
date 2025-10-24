@@ -114,3 +114,9 @@ class ShapefileService:
             }
 
         return result
+    
+    def list_layers(self) -> list[dict]:
+        """
+        Retorna todas as layers do schema configurado (self._schema).
+        """
+        return self._repo.list_layers(self._schema)

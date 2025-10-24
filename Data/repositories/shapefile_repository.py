@@ -43,3 +43,24 @@ class ShapefileRepository(IShapefileRepository):
         proc = subprocess.run(cmd, capture_output=True, text=True)
         if proc.returncode != 0:
             raise RuntimeError(f"ogr2ogr falhou: {proc.stderr}")
+
+    def list_layers(self, schema: str) -> list[dict]:
+        """
+        Lista todas as camadas registradas em geometry_columns
+        do schema especificado.
+        """
+        sql = text("""
+            SELECT 
+                f_table_schema,
+                f_table_name,
+                f_geometry_column,
+                coord_dimension,
+                srid,
+                type
+            FROM public.geometry_columns
+            WHERE f_table_schema = :schema
+            ORDER BY f_table_name
+        """)
+        with self._db.engine.begin() as conn:
+            rows = conn.execute(sql, {"schema": schema}).mappings().all()
+            return [dict(r) for r in rows]

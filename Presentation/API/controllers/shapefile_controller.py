@@ -6,6 +6,8 @@ from typing import Dict
 
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
+import psycopg2
+import psycopg2.extras
 
 from Application.services.shapefile_service import ShapefileService
 from Application.dto.shapefile_dto import ShapefileUploadResultDTO
@@ -103,3 +105,14 @@ async def upload_and_publish(
 def health() -> Dict[str, str]:
     return {"status": "ok"}
 
+@router.get("/layers")
+def list_layers():
+    """
+    Lista todas as camadas do schema configurado no GeoServer Workspace.
+    """
+    try:
+        service = ShapefileService.create_from_settings(settings)
+        layers = service.list_layers()
+        return JSONResponse(content=layers)
+    except Exception as ex:
+        raise HTTPException(status_code=500, detail=f"Erro ao listar layers: {ex}")
