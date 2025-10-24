@@ -1,0 +1,64 @@
+# =========================================
+# FAUNO - .dockerignore
+# =========================================
+
+# --- Git e controle de versão ---
+.git
+.gitignore
+
+# --- IDEs e editores ---
+.vscode
+.idea
+*.code-workspace
+
+# --- Ambiente virtual ---
+.venv
+venv
+ENV
+env
+
+# --- Cache / logs / build ---
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.out
+*.pid
+*.sqlite3
+*.db
+*.sql
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+.cache/
+.tox/
+.mypy_cache/
+.pytest_cache/
+coverage/
+build/
+dist/
+htmlcov/
+
+# --- Node / React (somente código necessário será copiado via Dockerfile.ui) ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# --- Docker internos ---
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.local.yml
+
+# --- Uploads temporários ---
+uploads/
+tmp/
+
+# --- Arquivos locais e sensíveis ---
+.env
+.env.local
+appsettings.dev.json
+appsettings.local.json

@@ -1,0 +1,55 @@
+# =========================================
+# FAUNO - .gitignore
+# =========================================
+
+# --- Ambientes virtuais Python ---
+.venv/
+venv/
+ENV/
+env/
+
+# --- Cache e build do Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+*.log
+
+# --- Configurações locais ---
+*.env
+.env.local
+appsettings.dev.json
+appsettings.local.json
+
+# --- Arquivos temporários ---
+*.tmp
+*.temp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.cache/
+*.orig
+
+# --- Logs e dumps ---
+*.log
+*.out
+*.pid
+logs/
+*.sqlite3
+*.db
+*.sql
+
+# --- Pasta de uploads temporários ---
+/tmp/
+/uploads/
+/Presentation/API/__pycache__/
+/Application/__pycache__/
+/Data/__pycache__/
+/En
