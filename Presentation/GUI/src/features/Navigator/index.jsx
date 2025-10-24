@@ -38,11 +38,11 @@ export default function Navigator() {
                 <i className="pi pi-map-marker" /> Importar
               </NavLink>
             </li>
-            <li>
+            {/*<li>
               <NavLink to="/history" className={({ isActive }) => (isActive ? "active" : "")}>
                 <i className="pi pi-clock" /> Histórico
               </NavLink>
-            </li>
+            </li>*/}
           </ul>
         </nav>
 
