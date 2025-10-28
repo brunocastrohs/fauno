@@ -31,7 +31,7 @@ export default function Auth() {
       const { ok, data, error: errMsg } = await login({ email, password });
 
       if (!ok || !data?.access_token) {
-        setError(errMsg || "Credenciais inválidas.");
+        setError(errMsg.message || "Credenciais inválidas.");
         return;
       }
 

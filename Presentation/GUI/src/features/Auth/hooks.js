@@ -20,7 +20,6 @@ export function useAuth() {
       return { ok: true, data };
     } catch (err) {
       const msg =
-        err?.response?.data?.detail ||
         err?.message ||
         "Falha ao autenticar. Verifique suas credenciais.";
       setError(msg);

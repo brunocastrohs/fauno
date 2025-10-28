@@ -63,8 +63,6 @@ export default function Uploader() {
       setResult(data);
     } catch (err) {
       const msg =
-        err?.response?.data?.detail ||
-        err?.response?.data?.message ||
         err?.message ||
         "Falha ao enviar arquivo.";
       setErrorMsg(msg);

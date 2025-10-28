@@ -13,11 +13,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from Presentation.API.settings import settings
+from Presentation.API.exception_handlers import register_exception_handlers
 from Presentation.API.controllers.shapefile_controller import router as shapefile_router
 from Presentation.API.controllers.auth_controller import router as auth_router
 
 
 app = FastAPI(title=settings.API_TITLE, version=settings.API_VERSION)
+register_exception_handlers(app)
 
 # CORS a partir do settings
 app.add_middleware(

@@ -3,6 +3,9 @@ import shutil
 import tempfile
 from pathlib import Path
 from typing import Dict
+import requests
+import traceback
+
 
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
@@ -12,6 +15,7 @@ from Application.dto.shapefile_dto import ShapefileUploadResultDTO
 from Application.mappings.shapefile_mapper import to_entity
 from Entities.geoserver_helper import sanitize_layer_name
 from Presentation.API.settings import settings
+from Application.helpers.exceptions import GeoServerError
 
 router = APIRouter()
 
@@ -24,7 +28,11 @@ async def upload_and_publish(
     publishOnINDE: str | None = Form(default=None),
 ) -> ShapefileUploadResultDTO:
     if not file.filename.lower().endswith(".zip"):
-        raise HTTPException(status_code=400, detail="Envie um arquivo .zip com o shapefile.")
+        return JSONResponse(status_code=400, content={
+            "error": "BadRequest",
+            "message": "Envie um arquivo .zip com o shapefile.",
+            "detail": None
+        })
 
     ws = workspace or settings.GEOSERVER_WORKSPACE
     ds = datastore or settings.GEOSERVER_DATASTORE
@@ -69,19 +77,19 @@ async def upload_and_publish(
     # importar para PostGIS e publicar no GeoServer
     try:
         service.import_to_postgis(shapefile_entity)
-        
+
         publish_on_inde = False
         if publishOnINDE is not None:
             publish_on_inde = str(publishOnINDE).strip().lower() in ("1", "true", "yes", "on")
 
         pub = service.publish_on_geoserver(
-                shapefile_entity,
-                workspace=ws,
-                datastore=ds,
-                sld_xml=sld_xml,
-                publish_on_inde=publish_on_inde,
-                inde_workspace=settings.INDE_WORKSPACE if publish_on_inde else None,
-                inde_datastore=settings.INDE_DATASTORE if publish_on_inde else None,
+            shapefile_entity,
+            workspace=ws,
+            datastore=ds,
+            sld_xml=sld_xml,
+            publish_on_inde=publish_on_inde,
+            inde_workspace=settings.INDE_WORKSPACE if publish_on_inde else None,
+            inde_datastore=settings.INDE_DATASTORE if publish_on_inde else None,
         )
 
         return ShapefileUploadResultDTO(
@@ -92,10 +100,39 @@ async def upload_and_publish(
             status="Publicado com sucesso no GeoServer",
             geoserver=pub,
         )
+
+    except GeoServerError as ge:
+        return JSONResponse(status_code=502, content={
+            "error": "GeoServerError",
+            "message": ge.message,
+            "detail": traceback.format_exc(),
+            "status_code": ge.status_code,
+            "method": ge.method,
+            "url": ge.url,
+            "response_text": ge.response_text
+        })
+
+    except requests.HTTPError as he:
+        resp = he.response
+        return JSONResponse(status_code=502, content={
+            "error": "UpstreamHTTPError",
+            "message": str(he),
+            "detail": traceback.format_exc(),
+            "status_code": getattr(resp, "status_code", None),
+            "url": getattr(resp, "url", None),
+            "response_text": (getattr(resp, "text", None) or "")[:2000] if resp is not None else None
+        })
+
     except Exception as ex:
-        raise HTTPException(status_code=500, detail=f"Falha ao publicar: {ex}") from ex
+        return JSONResponse(status_code=500, content={
+            "error": "InternalServerError",
+            "message": f"Falha ao publicar: {ex}",
+            "detail": traceback.format_exc()
+        })
+
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
+
 
 
 @router.get("/health")
